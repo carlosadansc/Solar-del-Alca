@@ -1,0 +1,148 @@
+
+@font-face {
+    font-family: "Caxton Regular";
+    src: url("../fonts/caxton/caxton-2.ttf");
+}
+
+@font-face {
+    font-family: "Caxton Italic";
+    src: url("../fonts/caxton/caxton-italic.ttf");
+}
+
+@font-face {
+    font-family: "Caxton Bold";
+    src: url("../fonts/caxton/caxton.ttf");
+}
+
+
+@font-face {
+    font-family: "Fenix Regular";
+    src: url("../fonts/fenix/Fenix-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Rajdhani Medium";
+    src: url("../fonts/rajdhani/Rajdhani-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Rajdhani Bold";
+    src: url("../fonts/rajdhani/Rajdhani-Bold.ttf");
+}
+
+:root{
+    font-size: 15px;
+    --text-color: #101820;  
+    --background-color: #F8EFE1;
+    --background-secondary-color: #efdbb4;
+    --red-pitahaya: #bf153e;
+    --green-nopal: #4a7b55;
+    --green-light: #C2D8C7;
+    --general-font: "Fenix Regular";
+    --rajdhani-medium: "Rajdhani Medium";
+    --rajdhani-bold: "Rajdhani Bold";
+    --title-font: "Caxton Regular";
+    --title-font-bold: "Caxton Bold";
+    --italic-font: "Caxton Italic"
+}
+
+#app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text-color);
+    font-family: var(--general-font);
+    transition: .3s ease-in;
+}
+
+a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+a:hover{
+    color: var(--text-color);
+}
+
+.divider-line{
+    height: 1.5px !important;
+    color: var(--text-color);
+    opacity: 1;
+    margin: 0 0 1.5px 0;
+}
+
+.my-title{
+    font-family: var(--title-font);
+    font-size: 2.5rem;
+    margin-top: 0;
+}
+
+.my-subtitle{
+    font-family: var(--title-font);
+    font-size: 2.1rem;
+    margin-bottom: .5rem;
+}
+
+.header-label{
+    font-family: var(--rajdhani-bold) !important;
+}
+
+.subheader-label{
+    font-family: var(--rajdhani-medium) !important;
+}
+
+.phrase-container {
+    background-color: var(--background-secondary-color);
+    margin-top: 50px;
+    padding: 3rem 0;
+}
+
+.phrase-container p{
+    width: 60%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+}
+
+.author-label{
+    font-family: var(--italic-font);
+    color: var(--green-nopal);
+    font-size: 1rem;
+}
+
+.dv{
+    display: block;
+}
+
+.mv{
+    display: none;
+}
+
+
+/*Mobile view---------------------------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+    #app{
+        overflow-x: hidden;
+    }
+    .dv{
+        display: none;
+    }
+    
+    .mv{
+        display: block;
+    }
+
+    .my-title{
+        font-size: 1.8rem;
+    }
+
+    .my-subtitle{
+        font-family: var(--title-font);
+        font-size: 1.6rem;
+    }
+
+    .phrase-container p{
+        width: 80%;
+        margin: 0 auto;
+        font-size: 1.2rem;
+    }
+}
