@@ -110,7 +110,7 @@ export default {
       isDeletable: false,
       interactivity: "click",
       data: [],
-      hotspotColor: "red",
+      hotspotColor: "#bf153e",
       messageBoxColor: "#409eff",
       textColor: "#333",
       opacity: 0.9,
@@ -178,6 +178,15 @@ export default {
 <style>
 .ui__vue_hotspot {
   height: 0 !important;
+}
+
+/* Give to children background color from 14 child to last child*/
+.ui__vue_hotspot_hotspot:nth-last-child(-n + 14) {
+  background-color: #d69a2c !important;
+}
+/* Give to children background color from 8 child to last child*/
+.ui__vue_hotspot_hotspot:nth-last-child(-n + 8) {
+  background-color: #4a7b55 !important;
 }
 
 .ui__vue_hotspot_hotspot.active > div {
