@@ -20,7 +20,7 @@
             </div>
             <div class="col col-8">
               <div class="row">
-                <div class="col">
+                <div class="col col-12">
                   <span>Lote común #16</span>
                 </div>
                 <div class="col">
@@ -31,9 +31,53 @@
                   <p>LARGO</p>
                   <p>200m</p>
                 </div>
+                <div class="col">
+                  <p>ANCHO</p>
+                  <p>200m</p>
+                </div>
+                <div class="col">
+                  <p>PRECIO X METRO</p>
+                  <p>200m</p>
+                </div>
+                <div class="col">
+                  <p>ACCESOS</p>
+                  <p>200m</p>
+                </div>
+                <div class="col">
+                  <p>PRECIO DE LISTA</p>
+                  <p>200m</p>
+                </div>
               </div>
             </div>
           </div>
+          <hr />
+          <h5>Monto de enganche estimado*.</h5>
+          <input style="width: 100%" type="text" />
+          <small
+            >*Se permiten montos desde el 10% del valor total del terreno
+            seleccionado</small
+          >
+          <h5>Plazo del financiamiento*.</h5>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+          <small>
+            *Según el enganche seleccionado se ajustan los plazos permitidos.
+          </small>
+          <button>REALIZAR COTIZACIÓN</button>
         </div>
       </div>
       <div class="col col-7">
@@ -63,11 +107,10 @@ export default {
       image: require("@/assets/img/grounds-sda.png"),
       editable: false,
       hotspotEditable: false,
-      hotspotColor: "rgba(191, 131, 75, 0.6);",
       isDeletable: false,
       interactivity: "click",
       data: [],
-      hotspotColor: "hsla(36, 95%, 45%, 0.718)",
+      hotspotColor: "red",
       messageBoxColor: "#409eff",
       textColor: "#333",
       opacity: 0.9,
@@ -80,10 +123,14 @@ export default {
     this.getGrounds();
   },
 
+  computed: {
+    
+  },
+
   methods: {
     async getGrounds() {
       try {
-        const resDB = await db.collection("grounds").orderBy("id").get();
+        const resDB = await db.collection("grounds").orderBy("category").get();
 
         resDB.forEach((res) => {
           this.hotspotConfig.data.push({
@@ -98,9 +145,8 @@ export default {
             img: res.data().img,
             status: res.data().status,
           });
+          console.log(res.data().category);
         });
-
-        console.log(this.hotspotConfig.data);
       } catch (error) {
         console.log(error);
       }
@@ -118,8 +164,13 @@ export default {
     },
     hotspotClick(hotspot) {
       let sw = hotspot.id;
-      console.log(hotspot.x, "/", hotspot.y);
+      
     },
+    hotspotColor(data){
+       data.forEach((item) => {
+          return item.category == "basic" ? "#AE0030" : "#D0860D" ? item.category == "real" : "#406941";
+       });
+    }
   },
 };
 </script>
