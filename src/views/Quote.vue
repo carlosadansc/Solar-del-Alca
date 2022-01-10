@@ -1,118 +1,149 @@
 <template>
-  <div class="quote-page">
+  <div class="quote-page this-background">
     <Nav class="this-nav" />
-    <div class="this-background row g-0">
-      <div class="col col-md-5 col-12">
-        <div class="quote-card">
-          <div style="border-bottom: 2px solid black; width: fit-content">
-            <h5 class="title">COTIZADOR DE LOTES SOLAR DEL ALCA</h5>
-          </div>
-          <h1>Hola! <strong>Bienvenido,</strong></h1>
-          <p>
-            Haz click sobre uno de los lotes en el mapa de la derecha para
-            obtener información, luego escoge las opciones de pago que te
-            Parezcan adecuadas para obtener una cotización.
-          </p>
-          <hr />
-          <div
-            v-if="!currentLand.id"
-            class="d-flex py-5 justify-content-center"
-          >
-            <h6 class="mb-0" style="color: #4a7b55">
-              Aun no se ha seleccionado ningun lote.
-            </h6>
-          </div>
-          <div v-else class="row">
-            <div class="col col-4">
-              <div class="imagen"></div>
-              <!-- <img src="" alt="no_img" /> -->
+    <div class="container">
+      <div class="row g-0">
+        <div class="col col-lg-5 col-md-12 col-12">
+          <div class="quote-card">
+            <div style="border-bottom: 2px solid black; width: fit-content">
+              <h5 class="title">COTIZADOR DE LOTES SOLAR DEL ALCA</h5>
             </div>
-            <div class="col col-8">
-              <div class="row">
-                <div class="col col-12 d-flex justify-content-between">
-                  <span class="lote-id">Lote común #{{ currentLand.id }}</span>
-                  <div class="close-button" @click="clearLand">
-                    <i class="ri-close-line"></i>
+            <h1>Hola! <strong>Bienvenido,</strong></h1>
+            <p>
+              Haz click sobre uno de los lotes en el mapa de la derecha para
+              obtener información, luego escoge las opciones de pago que te
+              Parezcan adecuadas para obtener una cotización.
+            </p>
+            <hr />
+            <div
+              v-if="!currentLand.id"
+              class="d-flex py-5 justify-content-center"
+            >
+              <h6 class="mb-0" style="color: #4a7b55">
+                Aun no se ha seleccionado ningun lote.
+              </h6>
+            </div>
+            <div v-else class="row">
+              <div class="col col-4">
+                <div class="imagen"></div>
+                <!-- <img src="" alt="no_img" /> -->
+              </div>
+              <div class="col col-8">
+                <div class="row">
+                  <div class="col col-12 d-flex justify-content-between">
+                    <span class="lote-id"
+                      >Lote común #{{ currentLand.id }}</span
+                    >
+                    <div class="close-button" @click="clearLand">
+                      <i class="ri-close-line"></i>
+                    </div>
                   </div>
-                </div>
-                <div class="col col-4">
-                  <p class="subtitles">SUPERFICIE</p>
-                  <p class="info-text">{{ currentLand.area }}m2</p>
-                </div>
-                <div class="col col-4">
-                  <p class="subtitles">LARGO</p>
-                  <p class="info-text">{{ currentLand.length }}m</p>
-                </div>
-                <div class="col col-4">
-                  <p class="subtitles">ANCHO</p>
-                  <p class="info-text">{{ currentLand.width }}m</p>
-                </div>
-                <div class="col col-6">
-                  <p class="subtitles">PRECIO X METRO</p>
-                  <p class="info-text">{{ currentLand.price }} MXN</p>
-                </div>
-                <div class="col col-6">
-                  <p class="subtitles">ACCESOS</p>
-                  <p class="info-text">{{ currentLand.access }}</p>
-                </div>
-                <div class="col">
-                  <p class="subtitles">PRECIO DE LISTA</p>
-                  <p class="info-text">{{ currentLand.priceList }} MXN</p>
+                  <div class="col col-4">
+                    <p class="subtitles">SUPERFICIE</p>
+                    <p class="info-text">{{ currentLand.area }}m2</p>
+                  </div>
+                  <div class="col col-4">
+                    <p class="subtitles">LARGO</p>
+                    <p class="info-text">{{ currentLand.length }}m</p>
+                  </div>
+                  <div class="col col-4">
+                    <p class="subtitles">ANCHO</p>
+                    <p class="info-text">{{ currentLand.width }}m</p>
+                  </div>
+                  <div class="col col-6">
+                    <p class="subtitles">PRECIO X METRO</p>
+                    <p class="info-text">{{ currentLand.price }} MXN</p>
+                  </div>
+                  <div class="col col-6">
+                    <p class="subtitles">ACCESOS</p>
+                    <p class="info-text">{{ currentLand.access }}</p>
+                  </div>
+                  <div class="col">
+                    <p class="subtitles">PRECIO DE LISTA</p>
+                    <p class="info-text">{{ currentLand.priceList }} MXN</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <hr />
+            <h5 class="mt-2">
+              Monto de enganche estimado<span style="color: #bf153e">*</span>.
+            </h5>
+            <div class="input-content">
+              <input
+                type="text"
+                class="input-monto"
+                placeholder="000,000.00"
+                v-model.lazy="displayValue"
+                :disabled="!enable"
+                @blur="isInputActive = false"
+                @focus="isInputActive = true"
+              />
+            </div>
+            <p class="info-warning">
+              *Se permiten montos desde el 10% del valor total del terreno
+              seleccionado hasta el 50%.
+            </p>
+            <h5>
+              Plazo del financiamiento<span style="color: #bf153e">*</span>.
+            </h5>
+            <div class="dropdown-plazos mb-2">
+              <button
+                :disabled="!enable"
+                class="btn btn-secondary dropdown-toggle boton-plazos"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ plazo }} Meses
+              </button>
+              <ul
+                class="dropdown-menu py-0 pt-1"
+                aria-labelledby="dropdownMenuButton1"
+              >
+                <li v-for="item in meses" :key="item">
+                  <span
+                    class="dropdown-item meses-options"
+                    @click="plazo = item"
+                    >{{ item }} meses</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <p class="info-warning">
+              *Según el enganche seleccionado se ajustan los plazos permitidos.
+            </p>
+            <button class="cotizar-button mt-4" :disabled="!enabled">REALIZAR COTIZACIÓN</button>
           </div>
-          <hr />
-          <h5 class="mt-2">
-            Monto de enganche estimado<span style="color: #bf153e">*</span>.
-          </h5>
-          <div class="input-content">
-            <input
-              type="text"
-              class="input-monto"
-              placeholder="000,000.00"
-              v-model.lazy="displayValue"
-              @blur="isInputActive = false"
-              @focus="isInputActive = true"
-            />
+        </div>
+        <div class="col col-lg-7 col-md-12 col-12 px-md-0 px-3">
+          <VueHotspot
+            class="grounds-img"
+            :init-options="hotspotConfig"
+            @hotspot-click="hotspotClick"
+          />
+          <div class="info-hotspots mt-5">
+            <p class="dot dot-red">
+              <b>Lote Común:</b> Son lotes frente a vialidades, cuentan con 1
+              acceso, cuentan con vistas directas a otros lotes y son los de
+              menor precio dentro del desarrollo.
+            </p>
+            <p class="dot dot-yellow">
+              <b>Lote Real:</b> Son lotes frente a áreas comunes importantes o
+              bien en esquinas, cuentan con 1 o 2 accesos, cuentan con vistas
+              directas a áreas verdes o bien hacia el motivo de acceso.
+            </p>
+            <p class="dot dot-green">
+              <b>Lote Imperial:</b> Son lotes ubicados en esquinas estratégicas,
+              su extensión es mayor, cuentan con 2 accesos y tienen vistas hacia
+              áreas verdes.
+            </p>
           </div>
-          <p class="info-warning">
-            *Se permiten montos desde el 10% del valor total del terreno
-            seleccionado
-          </p>
-          <h5>
-            Plazo del financiamiento<span style="color: #bf153e">*</span>.
-          </h5>
-          <div class="dropdown-plazos mb-2">
-            <button
-              class="btn btn-secondary dropdown-toggle boton-plazos"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              0 Meses
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-          <p class="info-warning">
-            *Según el enganche seleccionado se ajustan los plazos permitidos.
-          </p>
-          <button class="cotizar-button mt-4">REALIZAR COTIZACIÓN</button>
         </div>
       </div>
-      <div class="col col-md-7 col-12 px-md-0 px-3">
-        <VueHotspot
-          class="grounds-img"
-          :init-options="hotspotConfig"
-          @hotspot-click="hotspotClick"
-        />
-      </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -120,17 +151,21 @@
 import Nav from "@/components/Nav2.vue";
 import VueHotspot from "vue-hotspot-ets";
 import { db } from "../firebase";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "Quote",
   components: {
     Nav,
     VueHotspot,
+    Footer,
   },
   data: () => ({
     enganche: 0,
     minEnganche: 0,
     maxEnganche: 0,
+    plazo: 0,
+    enable: false,
     currentLand: {
       id: "",
       name: "",
@@ -154,6 +189,7 @@ export default {
       textColor: "#333",
       opacity: 0.9,
     },
+    meses: [12, 24, 36, 48, 60, 72, 84, 96],
     isInputActive: false,
   }),
 
@@ -189,6 +225,13 @@ export default {
         this.enganche = newValue;
       },
     },
+    enabled() {
+      if(this.enable && this.plazo > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 
   methods: {
@@ -216,6 +259,7 @@ export default {
     },
     hotspotClick(hotspot) {
       //console.log("Clicked hotspot", hotspot);
+      this.enable = true;
       this.currentLand = {
         id: hotspot.id,
         name: hotspot.category,
@@ -229,7 +273,8 @@ export default {
           this.getPriceList(hotspot.meterPrice, hotspot.area)
         ),
       };
-      this.maxEnganche = this.getPriceList(hotspot.meterPrice, hotspot.area);
+      this.maxEnganche =
+        this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
       this.enganche = this.minEnganche = this.getEnganche(
         hotspot.meterPrice,
         hotspot.area
@@ -247,7 +292,8 @@ export default {
         access: "",
         priceList: "",
       };
-      this.enganche = this.minEnganche = 0;
+      this.enganche = this.minEnganche = this.plazo = 0;
+      this.enable = false
     },
     getPriceList(price, area) {
       return price * area;
@@ -278,7 +324,7 @@ export default {
 
 <style>
 .ui__vue_hotspot {
-  height: 0 !important;
+  height: fit-content !important;
 }
 
 /* Give to children background color from 14 child to last child*/
@@ -295,7 +341,7 @@ export default {
 }
 
 .ui__vue_hotspot_buttons_box {
-  height: 0 !important;
+  display: none;
 }
 
 .this-nav {
@@ -309,7 +355,6 @@ export default {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding-bottom: 3rem;
   height: fit-content;
 }
 
@@ -442,6 +487,44 @@ export default {
   font-family: "Caxton Bold";
 }
 
+.info-hotspots {
+  box-sizing: border-box;
+  padding: 2rem 0;
+  padding-left: 28px;
+}
+
+.meses-options {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #d1d1d1;
+  color: #305037;
+  cursor: pointer;
+  background: transparent;
+}
+
+.dot {
+  position: relative;
+}
+.dot::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  position: absolute;
+  top: 4px;
+  left: -24px;
+}
+
+.dot-red::before {
+  background-color: #bf153e;
+}
+.dot-yellow::before {
+  background-color: #d69a2c;
+}
+.dot-green::before {
+  background-color: #4a7b55;
+}
+
 /*Mobile view---------------------------------------------------------------------------------------------------------------------*/
 
 @media screen and (max-width: 768px) {
@@ -454,12 +537,13 @@ export default {
     position: relative;
     box-shadow: 15px 8px 24px 8px rgba(0, 0, 0, 0.08);
     padding: 2rem;
+    top: 2rem;
   }
 
   .grounds-img {
-  width: 100% !important;
-  position: relative;
-  top: 3rem;
-}
+    width: 100% !important;
+    position: relative;
+    top: 3rem;
+  }
 }
 </style>
