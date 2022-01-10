@@ -2,7 +2,7 @@
   <div class="quote-page">
     <Nav class="this-nav" />
     <div class="this-background row g-0">
-      <div class="col col-5">
+      <div class="col col-md-5 col-12">
         <div class="quote-card">
           <div style="border-bottom: 2px solid black; width: fit-content">
             <h5 class="title">COTIZADOR DE LOTES SOLAR DEL ALCA</h5>
@@ -80,7 +80,9 @@
             *Se permiten montos desde el 10% del valor total del terreno
             seleccionado
           </p>
-          <h5>Plazo del financiamiento<span style="color: #bf153e">*</span>.</h5>
+          <h5>
+            Plazo del financiamiento<span style="color: #bf153e">*</span>.
+          </h5>
           <div class="dropdown-plazos mb-2">
             <button
               class="btn btn-secondary dropdown-toggle boton-plazos"
@@ -103,7 +105,7 @@
           <button class="cotizar-button mt-4">REALIZAR COTIZACIÓN</button>
         </div>
       </div>
-      <div class="col col-7">
+      <div class="col col-md-7 col-12 px-md-0 px-3">
         <VueHotspot
           class="grounds-img"
           :init-options="hotspotConfig"
@@ -152,7 +154,7 @@ export default {
       textColor: "#333",
       opacity: 0.9,
     },
-    isInputActive: false
+    isInputActive: false,
   }),
 
   created() {},
@@ -169,7 +171,9 @@ export default {
         } else {
           return (
             "$ " +
-            this.enganche.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
+            this.enganche
+              .toFixed(2)
+              .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")
           );
         }
       },
@@ -177,7 +181,7 @@ export default {
         let newValue = parseFloat(modifiedValue.replace(/[^\d\.]/g, ""));
         if (isNaN(newValue)) {
           newValue = 0;
-        }else if (newValue < this.minEnganche) {
+        } else if (newValue < this.minEnganche) {
           newValue = this.minEnganche;
         } else if (newValue > this.maxEnganche) {
           newValue = this.maxEnganche;
@@ -226,7 +230,10 @@ export default {
         ),
       };
       this.maxEnganche = this.getPriceList(hotspot.meterPrice, hotspot.area);
-      this.enganche = this.minEnganche = this.getEnganche(hotspot.meterPrice, hotspot.area);
+      this.enganche = this.minEnganche = this.getEnganche(
+        hotspot.meterPrice,
+        hotspot.area
+      );
     },
     clearLand() {
       this.currentLand = {
@@ -246,7 +253,7 @@ export default {
       return price * area;
     },
     getEnganche(price, area) {
-      let value = (price * area) * 0.1;
+      let value = price * area * 0.1;
       value = value.toFixed(2);
       return parseFloat(value);
     },
@@ -320,7 +327,6 @@ export default {
 
 .grounds-img {
   width: 90% !important;
-  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -378,7 +384,8 @@ export default {
   background: transparent;
 }
 
-.input-monto:focus, .boton-plazos:focus {
+.input-monto:focus,
+.boton-plazos:focus {
   outline: none;
 }
 
@@ -432,6 +439,27 @@ export default {
   padding: 0.5rem;
   color: #ffffff;
   background-color: #bf153e;
-  font-family: 'Caxton Bold';
+  font-family: "Caxton Bold";
+}
+
+/*Mobile view---------------------------------------------------------------------------------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+  .quote-card {
+    background-color: #efdbb4;
+    height: fit-content;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    box-shadow: 15px 8px 24px 8px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+  }
+
+  .grounds-img {
+  width: 100% !important;
+  position: relative;
+  top: 3rem;
+}
 }
 </style>
