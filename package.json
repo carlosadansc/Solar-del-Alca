@@ -8,12 +8,13 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "firebase": "^8.4.3",
     "vue": "^2.6.11",
     "vue-fb-customer-chat": "^0.2.0",
     "vue-hotspot": "^2.0.3",
     "vue-hotspot-ets": "^1.0.13",
+    "vue-html2pdf": "^1.8.0",
     "vue-router": "^3.2.0",
-    "firebase": "^8.4.3",
     "vuex": "^3.4.0"
   },
   "devDependencies": {

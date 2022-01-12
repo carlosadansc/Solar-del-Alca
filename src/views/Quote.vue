@@ -114,7 +114,12 @@
             <p class="info-warning">
               *Según el enganche seleccionado se ajustan los plazos permitidos.
             </p>
-            <button class="cotizar-button mt-4" :disabled="!enabled">REALIZAR COTIZACIÓN</button>
+            <button
+              class="cotizar-button mt-4"
+              @click="generateReport"
+            >
+              REALIZAR COTIZACIÓN
+            </button>
           </div>
         </div>
         <div class="col col-lg-7 col-md-12 col-12 px-md-0 px-3">
@@ -143,6 +148,24 @@
         </div>
       </div>
     </div>
+    <VueHtml2pdf
+      :show-layout="false"
+      :float-layout="true"
+      :enable-download="true"
+      :preview-modal="true"
+      :paginate-elements-by-height="1400"
+      filename="cotizacion.pdf"
+      :pdf-quality="2"
+      :manual-pagination="false"
+      pdf-format="letter"
+      pdf-orientation="portrait"
+      pdf-content-width="800px"
+      ref="html2Pdf"
+    >
+      <section slot="pdf-content">
+        <h2>Hola</h2>
+      </section>
+    </VueHtml2pdf>
     <Footer />
   </div>
 </template>
@@ -152,12 +175,14 @@ import Nav from "@/components/Nav2.vue";
 import VueHotspot from "vue-hotspot-ets";
 import { db } from "../firebase";
 import Footer from "@/components/Footer.vue";
+import VueHtml2pdf from "vue-html2pdf";
 
 export default {
   name: "Quote",
   components: {
     Nav,
     VueHotspot,
+    VueHtml2pdf,
     Footer,
   },
   data: () => ({
@@ -226,12 +251,12 @@ export default {
       },
     },
     enabled() {
-      if(this.enable && this.plazo > 0) {
+      if (this.enable && this.plazo > 0) {
         return true;
       } else {
         return false;
       }
-    }
+    },
   },
 
   methods: {
@@ -293,7 +318,7 @@ export default {
         priceList: "",
       };
       this.enganche = this.minEnganche = this.plazo = 0;
-      this.enable = false
+      this.enable = false;
     },
     getPriceList(price, area) {
       return price * area;
@@ -317,6 +342,9 @@ export default {
           ? item.category == "real"
           : "#406941";
       });
+    },
+    generateReport() {
+      this.$refs.html2Pdf.generatePdf();
     },
   },
 };
