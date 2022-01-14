@@ -32,7 +32,7 @@
                 <div class="row">
                   <div class="col col-12 d-flex justify-content-between">
                     <span class="lote-id"
-                      >Lote común #{{ currentLand.id }}</span
+                      >Lote {{ category }} #{{ currentLand.id }}</span
                     >
                     <div class="close-button" @click="clearLand">
                       <i class="ri-close-line"></i>
@@ -52,7 +52,9 @@
                   </div>
                   <div class="col col-6">
                     <p class="subtitles">PRECIO X METRO</p>
-                    <p class="info-text">{{ currentLand.price }} MXN</p>
+                    <p class="info-text">
+                      {{ formatMoney(currentLand.price) }} MXN
+                    </p>
                   </div>
                   <div class="col col-6">
                     <p class="subtitles">ACCESOS</p>
@@ -60,7 +62,9 @@
                   </div>
                   <div class="col">
                     <p class="subtitles">PRECIO DE LISTA</p>
-                    <p class="info-text">{{ currentLand.priceList }} MXN</p>
+                    <p class="info-text">
+                      {{ formatMoney(newPriceList) }} MXN
+                    </p>
                   </div>
                 </div>
               </div>
@@ -114,10 +118,7 @@
             <p class="info-warning">
               *Según el enganche seleccionado se ajustan los plazos permitidos.
             </p>
-            <button
-              class="cotizar-button mt-4"
-              @click="generateReport"
-            >
+            <button class="cotizar-button mt-4" @click="generateReport">
               REALIZAR COTIZACIÓN
             </button>
           </div>
@@ -176,6 +177,7 @@ import VueHotspot from "vue-hotspot-ets";
 import { db } from "../firebase";
 import Footer from "@/components/Footer.vue";
 import VueHtml2pdf from "vue-html2pdf";
+import moment from 'moment';
 
 export default {
   name: "Quote",
@@ -187,6 +189,7 @@ export default {
   },
   data: () => ({
     enganche: 0,
+    newPriceList: 0,
     minEnganche: 0,
     maxEnganche: 0,
     plazo: 0,
@@ -257,6 +260,44 @@ export default {
         return false;
       }
     },
+    percent() {
+      return (this.enganche * 100) / this.currentLand.priceList;
+    },
+    category() {
+      switch (this.currentLand.name) {
+        case "basic":
+          return "Común";
+        case "imperial":
+          return "Imperial";
+        case "real":
+          return "Real";
+        default:
+          break;
+      }
+    },
+    discount() {
+      if (this.percent < 0.15 || this.plazo == 96) {
+        return 0;
+      } else if (this.percent >= 15 && this.percent < 25) {
+        return 0.02;
+      } else if (this.percent >= 25 && this.percent < 35) {
+        return 0.04;
+      } else if (this.percent >= 35 && this.percent < 50) {
+        return 0.07;
+      } else if (this.percent >= 50 && this.percent < 90) {
+        return 0.11;
+      } else if (this.percent >= 90) {
+        return 0.17;
+      } else {
+        return 0;
+      }
+    },
+  },
+
+  watch: {
+    plazo(){
+      this.calculatePriceList();
+    }
   },
 
   methods: {
@@ -289,21 +330,16 @@ export default {
         id: hotspot.id,
         name: hotspot.category,
         img: hotspot.img,
-        price: this.formatMoney(hotspot.meterPrice),
+        price: hotspot.meterPrice,
         area: hotspot.area,
         length: hotspot.length,
         width: hotspot.width,
         access: hotspot.access,
-        priceList: this.formatMoney(
-          this.getPriceList(hotspot.meterPrice, hotspot.area)
-        ),
+        priceList: this.getPriceList(hotspot.meterPrice, hotspot.area),
       };
-      this.maxEnganche =
-        this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
-      this.enganche = this.minEnganche = this.getEnganche(
-        hotspot.meterPrice,
-        hotspot.area
-      );
+      this.maxEnganche = this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
+      this.enganche = this.minEnganche = this.getEnganche(hotspot.meterPrice, hotspot.area);
+      this.newPriceList = this.currentLand.priceList;
     },
     clearLand() {
       this.currentLand = {
@@ -344,7 +380,62 @@ export default {
       });
     },
     generateReport() {
-      this.$refs.html2Pdf.generatePdf();
+      if (this.currentLand.id) {
+        //this.$refs.html2Pdf.generatePdf();
+        this.quote();
+      } else {
+        alert("Primero elija algún lote!");
+      }
+    },
+    calculatePriceList(){
+      this.newPriceList = this.plazo < 96 ? this.currentLand.priceList : this.currentLand.priceList * 1.025;
+      console.log(this.percent.toFixed(0));
+      if(this.percent.toFixed(0) <= 10){
+        var aux = this.newPriceList * 0.1;
+        this.enganche = parseFloat(aux.toFixed(2));
+      }
+    },
+    quote() {
+      var purchaseValue = this.currentLand.priceList - (this.currentLand.priceList * this.discount);
+      var restValuePayment = purchaseValue - this.enganche;
+      var monthlyPayment = restValuePayment / this.plazo;
+      
+      var quoteDatails = [];
+      var saldoInicial = restValuePayment; 
+
+      for (let index = 1; index <= this.plazo ; index++) {
+       var date = moment().add(index, 'months').format("DD/MM/YYYY"); 
+
+       quoteDatails.push({
+         noPago: index,
+         fecha: date,
+         saldoInicial: saldoInicial, 
+         pago: monthlyPayment,
+         interes: 0.00,
+         saldoFinal: saldoInicial - monthlyPayment,
+       });
+
+       saldoInicial -= monthlyPayment; 
+      }
+      
+       console.log(
+        "LOTE #",
+        this.currentLand.id,
+        " PRECIO DE LISTA :",
+        this.formatMoney(this.currentLand.priceList),
+        " PRECIO DE VENTA :", this.formatMoney(purchaseValue),
+        " ENGANCHE :",
+        this.formatMoney(this.enganche),
+        "(",
+        this.percent.toFixed(0),
+        "%)", 
+        " DESCUENTO :",
+        this.discount,
+        " FINANCIADO: ",
+        this.formatMoney(restValuePayment),
+        " MENSUALIDAD :",
+        this.formatMoney(monthlyPayment)
+      ); 
     },
   },
 };
