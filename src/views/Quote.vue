@@ -151,7 +151,7 @@
       :show-layout="false"
       :float-layout="true"
       :enable-download="true"
-      :preview-modal="true"
+      :preview-modal="false"
       :paginate-elements-by-height="1400"
       filename="cotizacion.pdf"
       :pdf-quality="3"
@@ -817,6 +817,7 @@ export default {
 .logo img {
   width: 180px;
   height: 110px;
+  object-fit: contain;
 }
 .titulo h1 {
   font-size: 1.5rem;
