@@ -62,9 +62,7 @@
                   </div>
                   <div class="col">
                     <p class="subtitles">PRECIO DE LISTA</p>
-                    <p class="info-text">
-                      {{ formatMoney(newPriceList) }} MXN
-                    </p>
+                    <p class="info-text">{{ formatMoney(newPriceList) }} MXN</p>
                   </div>
                 </div>
               </div>
@@ -156,15 +154,138 @@
       :preview-modal="true"
       :paginate-elements-by-height="1400"
       filename="cotizacion.pdf"
-      :pdf-quality="2"
+      :pdf-quality="3"
       :manual-pagination="false"
       pdf-format="letter"
       pdf-orientation="portrait"
       pdf-content-width="800px"
+      :html-to-pdf-options="htmlToPdfOptions"
       ref="html2Pdf"
     >
       <section slot="pdf-content">
-        <h2>Hola</h2>
+        <div class="contenido">
+          <div class="cabecera">
+            <div class="logo">
+              <img src="@/assets/img/logo-2.svg" alt="logo" />
+            </div>
+            <div class="titulo">
+              <div class="row">
+                <div class="col col-12">
+                  <span class="lote-id"
+                    >Lote {{ category }} #{{ currentLand.id }}</span
+                  >
+                </div>
+                <div class="col col-3">
+                  <p class="subtitles">SUPERFICIE</p>
+                  <p class="info-text">{{ currentLand.area }}m2</p>
+                </div>
+                <div class="col col-2">
+                  <p class="subtitles">LARGO</p>
+                  <p class="info-text">{{ currentLand.length }}m</p>
+                </div>
+                <div class="col col-2">
+                  <p class="subtitles">ANCHO</p>
+                  <p class="info-text">{{ currentLand.width }}m</p>
+                </div>
+                <div class="col col-5">
+                  <p class="subtitles">FECHA</p>
+                  <p class="info-text">{{ currentDay }}</p>
+                </div>
+                <div class="col col-3">
+                  <p class="subtitles">PRECIO X METRO</p>
+                  <p class="info-text">
+                    {{ formatMoney(currentLand.price) }} MXN
+                  </p>
+                </div>
+                <div class="col col-1">
+                  <p class="subtitles">ACCESOS</p>
+                  <p class="info-text">{{ currentLand.access }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-3">
+                  <p class="subtitles">PRECIO DE LISTA</p>
+                  <p class="info-text">{{ formatMoney(newPriceList) }} MXN</p>
+                </div>
+                <div class="col col-3">
+                  <p class="subtitles">ENGANCHE</p>
+                  <p class="info-text">{{displayValue}} MXN</p>
+                </div>
+                <div class="col col-3">
+                  <p class="subtitles">FINANCIAMIENTO</p>
+                  <p class="info-text">{{plazo}} meses</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="height: 40px"></div>
+          <div class="pagos">
+            <div class="row titles-row">
+              <div class="col col-1">
+                <p>#Pago</p>
+              </div>
+              <div class="col col-2">
+                <p>Fecha</p>
+              </div>
+              <div class="col col-2">
+                <p>Saldo Inicial</p>
+              </div>
+              <div class="col col-2">
+                <p>Pago</p>
+              </div>
+              <div class="col col-1">
+                <p>Interes</p>
+              </div>
+              <div class="col col-2">
+                <p>Saldo Final</p>
+              </div>
+            </div>
+            <div class="row enganche-row">
+              <div class="col col-1">
+                <p>Enganche</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ currentDay }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ formatMoney(newPriceList) }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ displayValue }}</p>
+              </div>
+              <div class="col col-1">
+                <p></p>
+              </div>
+              <div class="col col-2">
+                <p>{{ formatMoney(newPriceList - enganche) }}</p>
+              </div>
+            </div>
+            <div
+              class="row content-row"
+              v-for="(pay, index) in payments"
+              :key="index"
+            >
+              <div class="col col-1">
+                <p>{{ pay.noPago }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ pay.fecha }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ formatMoney(pay.saldoInicial) }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ formatMoney(pay.pago) }}</p>
+              </div>
+              <div class="col col-1">
+                <p>{{ pay.interes }}</p>
+              </div>
+              <div class="col col-2">
+                <p>{{ formatMoney(pay.saldoFinal) }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </VueHtml2pdf>
     <Footer />
@@ -177,7 +298,7 @@ import VueHotspot from "vue-hotspot-ets";
 import { db } from "../firebase";
 import Footer from "@/components/Footer.vue";
 import VueHtml2pdf from "vue-html2pdf";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   name: "Quote",
@@ -194,6 +315,7 @@ export default {
     maxEnganche: 0,
     plazo: 0,
     enable: false,
+    payments: [],
     currentLand: {
       id: "",
       name: "",
@@ -218,7 +340,33 @@ export default {
       opacity: 0.9,
     },
     meses: [12, 24, 36, 48, 60, 72, 84, 96],
+    htmlToPdfOptions: {
+      margin: 12,
+      filename: 'cotizacion.pdf',
+    },
+    info: [
+      "No. Lote:",
+      "Tipo de Lote:",
+      "Superficie:",
+      "% Enganche:",
+      "Meses:",
+      "Fecha de Compra:",
+      "Último Pago:",
+    ],
+    info2: [
+      "Precio de Lista:",
+      "$ m2 Lista:",
+      "Descuento:",
+      "Valor de Compra:",
+      "$ m2 Adquisición:",
+      "Monto Enganche:",
+      "Financiado",
+      "$ m2 Prefencial",
+      "Pago Mensualidad:",
+      "Tasa:",
+    ],
     isInputActive: false,
+    currentDay: moment().format("DD/MM/YYYY"),
   }),
 
   created() {},
@@ -295,9 +443,9 @@ export default {
   },
 
   watch: {
-    plazo(){
+    plazo() {
       this.calculatePriceList();
-    }
+    },
   },
 
   methods: {
@@ -337,8 +485,13 @@ export default {
         access: hotspot.access,
         priceList: this.getPriceList(hotspot.meterPrice, hotspot.area),
       };
-      this.maxEnganche = this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
-      this.enganche = this.minEnganche = this.getEnganche(hotspot.meterPrice, hotspot.area);
+      this.maxEnganche =
+        this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
+      this.enganche = this.minEnganche = this.getEnganche(
+        hotspot.meterPrice,
+        hotspot.area
+      );
+      this.plazo = 12;
       this.newPriceList = this.currentLand.priceList;
     },
     clearLand() {
@@ -353,6 +506,7 @@ export default {
         access: "",
         priceList: "",
       };
+      this.payments = [];
       this.enganche = this.minEnganche = this.plazo = 0;
       this.enable = false;
     },
@@ -381,61 +535,68 @@ export default {
     },
     generateReport() {
       if (this.currentLand.id) {
-        //this.$refs.html2Pdf.generatePdf();
         this.quote();
+        this.$refs.html2Pdf.generatePdf();
       } else {
         alert("Primero elija algún lote!");
       }
     },
-    calculatePriceList(){
-      this.newPriceList = this.plazo < 96 ? this.currentLand.priceList : this.currentLand.priceList * 1.025;
+    calculatePriceList() {
+      this.newPriceList =
+        this.plazo < 96
+          ? this.currentLand.priceList
+          : this.currentLand.priceList * 1.025;
       console.log(this.percent.toFixed(0));
-      if(this.percent.toFixed(0) <= 10){
+      if (this.percent.toFixed(0) <= 10) {
         var aux = this.newPriceList * 0.1;
         this.enganche = parseFloat(aux.toFixed(2));
       }
     },
     quote() {
-      var purchaseValue = this.currentLand.priceList - (this.currentLand.priceList * this.discount);
+      var purchaseValue =
+        this.currentLand.priceList - this.currentLand.priceList * this.discount;
       var restValuePayment = purchaseValue - this.enganche;
       var monthlyPayment = restValuePayment / this.plazo;
-      
+
       var quoteDatails = [];
-      var saldoInicial = restValuePayment; 
+      var saldoInicial = restValuePayment;
 
-      for (let index = 1; index <= this.plazo ; index++) {
-       var date = moment().add(index, 'months').format("DD/MM/YYYY"); 
+      for (let index = 1; index <= this.plazo; index++) {
+        var date = moment().add(index, "months").format("DD/MM/YYYY");
 
-       quoteDatails.push({
-         noPago: index,
-         fecha: date,
-         saldoInicial: saldoInicial, 
-         pago: monthlyPayment,
-         interes: 0.00,
-         saldoFinal: saldoInicial - monthlyPayment,
-       });
+        quoteDatails.push({
+          noPago: index,
+          fecha: date,
+          saldoInicial: saldoInicial,
+          pago: monthlyPayment,
+          interes: 0.0,
+          saldoFinal: saldoInicial - monthlyPayment,
+        });
 
-       saldoInicial -= monthlyPayment; 
+        saldoInicial -= monthlyPayment;
       }
-      
-       console.log(
+
+      this.payments = quoteDatails;
+
+      console.log(
         "LOTE #",
         this.currentLand.id,
         " PRECIO DE LISTA :",
         this.formatMoney(this.currentLand.priceList),
-        " PRECIO DE VENTA :", this.formatMoney(purchaseValue),
+        " PRECIO DE VENTA :",
+        this.formatMoney(purchaseValue),
         " ENGANCHE :",
         this.formatMoney(this.enganche),
         "(",
         this.percent.toFixed(0),
-        "%)", 
+        "%)",
         " DESCUENTO :",
         this.discount,
         " FINANCIADO: ",
         this.formatMoney(restValuePayment),
         " MENSUALIDAD :",
         this.formatMoney(monthlyPayment)
-      ); 
+      );
     },
   },
 };
@@ -642,6 +803,68 @@ export default {
 }
 .dot-green::before {
   background-color: #4a7b55;
+}
+.contenido {
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+  font-family: "Fenix Regular";
+}
+.cabecera {
+  display: flex;
+  column-gap: 2rem;
+}
+.logo img {
+  width: 180px;
+  height: 110px;
+}
+.titulo h1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+.tabla tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tabla td {
+  line-height: 12px;
+  height: 30px;
+  padding: 0 12px;
+  line-height: 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.tabla tr td:nth-child(odd) {
+  width: 140px;
+  background-color: rgb(32, 32, 32);
+  text-align: left;
+  color: white;
+  margin-right: 4px;
+}
+.tabla tr td:nth-child(even) {
+  background-color: rgb(238, 238, 238);
+  text-align: right;
+}
+.tabla tr p {
+  margin: 0;
+}
+.content-row,
+.enganche-row {
+  padding: 4px;
+}
+.content-row p,
+.enganche-row p {
+  margin: 0;
+}
+.content-row:nth-child(odd) {
+  background-color: rgb(238, 238, 238);
+}
+.titles-row {
+  font-weight: bold;
 }
 
 /*Mobile view---------------------------------------------------------------------------------------------------------------------*/
