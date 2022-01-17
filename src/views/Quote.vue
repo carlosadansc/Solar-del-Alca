@@ -2,6 +2,9 @@
   <div class="quote-page this-background">
     <Nav class="this-nav" />
     <div class="container">
+
+      
+
       <div class="row g-0">
         <div class="col col-lg-5 col-md-12 col-12">
           <div class="quote-card">
@@ -25,7 +28,7 @@
             </div>
             <div v-else class="row">
               <div class="col col-4">
-                <div class="imagen"></div>
+                <img class="imagen" :src="currentLand.img"/>
                 <!-- <img src="" alt="no_img" /> -->
               </div>
               <div class="col col-8">
