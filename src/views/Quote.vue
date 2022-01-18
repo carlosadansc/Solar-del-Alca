@@ -15,7 +15,7 @@
             <p>
               Haz click sobre uno de los lotes en el mapa de la derecha para
               obtener información, luego escoge las opciones de pago que te
-              Parezcan adecuadas para obtener una cotización.
+              parezcan adecuadas para obtener una cotización.
             </p>
             <hr />
             <div
@@ -53,19 +53,24 @@
                     <p class="subtitles">ANCHO</p>
                     <p class="info-text">{{ currentLand.width }}m</p>
                   </div>
-                  <div class="col col-6">
+                  <div class="col col-7">
                     <p class="subtitles">PRECIO X METRO</p>
                     <p class="info-text">
                       {{ formatMoney(currentLand.price) }} MXN
                     </p>
                   </div>
-                  <div class="col col-6">
+                  <div class="col col-5">
                     <p class="subtitles">ACCESOS</p>
                     <p class="info-text">{{ currentLand.access }}</p>
                   </div>
-                  <div class="col">
+                  <div class="col col-7">
                     <p class="subtitles">PRECIO DE LISTA</p>
                     <p class="info-text">{{ formatMoney(newPriceList) }} MXN</p>
+                  </div>
+                  <div class="col col-5">
+                    <p class="subtitles">ESTATUS</p>
+                    <p class="info-text fw-bolder" v-if="currentLand.status == 'in_sale'">Disponible</p>
+                    <p class="info-text fw-bolder" v-else style="color: #bf153e">Vendido</p>
                   </div>
                 </div>
               </div>
@@ -80,7 +85,7 @@
                 class="input-monto"
                 placeholder="000,000.00"
                 v-model.lazy="displayValue"
-                :disabled="!enable"
+                :disabled="!enable || currentLand.status !== 'in_sale'"
                 @blur="isInputActive = false"
                 @focus="isInputActive = true"
               />
@@ -94,7 +99,7 @@
             </h5>
             <div class="dropdown-plazos mb-2">
               <button
-                :disabled="!enable"
+                :disabled="!enable || currentLand.status !== 'in_sale'"
                 class="btn btn-secondary dropdown-toggle boton-plazos"
                 type="button"
                 id="dropdownMenuButton1"
@@ -119,7 +124,7 @@
             <p class="info-warning">
               *Según el enganche seleccionado se ajustan los plazos permitidos.
             </p>
-            <button class="cotizar-button mt-4" @click="generateReport">
+            <button class="cotizar-button mt-4" @click="generateReport" :disabled="!enable || !currentLand.status == 'in_sale'">
               REALIZAR COTIZACIÓN
             </button>
           </div>
@@ -154,7 +159,7 @@
       :show-layout="false"
       :float-layout="true"
       :enable-download="true"
-      :preview-modal="false"
+      :preview-modal="true"
       :paginate-elements-by-height="1400"
       filename="cotizacion.pdf"
       :pdf-quality="3"
@@ -169,7 +174,7 @@
         <div class="contenido">
           <div class="cabecera">
             <div class="logo">
-              <img src="@/assets/img/logo-2.svg" alt="logo" />
+              <img src="@/assets/img/logo.jpg" alt="logo" />
             </div>
             <div class="titulo">
               <div class="row">
@@ -286,6 +291,9 @@
               <div class="col col-2">
                 <p>{{ formatMoney(pay.saldoFinal) }}</p>
               </div>
+              <div v-if="index == 21 || index == 51 || index == 81" class="col col-12">
+                <div style="page-break-before:always">&nbsp;</div> 
+              </div>
             </div>
           </div>
         </div>
@@ -346,6 +354,7 @@ export default {
     htmlToPdfOptions: {
       margin: 12,
       filename: 'cotizacion.pdf',
+      useCORS: true
     },
     info: [
       "No. Lote:",
@@ -469,6 +478,7 @@ export default {
             width: res.data().width,
             img: res.data().img,
             status: res.data().status,
+            access: res.data().access,
           });
         });
       } catch (error) {
@@ -488,6 +498,7 @@ export default {
         width: hotspot.width,
         access: hotspot.access,
         priceList: this.getPriceList(hotspot.meterPrice, hotspot.area),
+        status: hotspot.status
       };
       this.maxEnganche =
         this.getPriceList(hotspot.meterPrice, hotspot.area) / 2;
@@ -497,6 +508,7 @@ export default {
       );
       this.plazo = 12;
       this.newPriceList = this.currentLand.priceList;
+      console.log(this.currentLand);
     },
     clearLand() {
       this.currentLand = {
