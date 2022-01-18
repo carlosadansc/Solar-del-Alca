@@ -1,9 +1,9 @@
 <template>
   <div class="quote-page this-background">
     <Nav class="this-nav" />
-    <div class="container">
+    <div class="container">   
 
-      
+      <img v-if="showImg" @click="showImg = false" class="show-img" :src="currentLand.img" alt="no_img">
 
       <div class="row g-0">
         <div class="col col-lg-5 col-md-12 col-12">
@@ -28,7 +28,7 @@
             </div>
             <div v-else class="row">
               <div class="col col-4">
-                <img class="imagen" :src="currentLand.img"/>
+                <img @click="showImg = true" class="imagen" :src="currentLand.img"/>
                 <!-- <img src="" alt="no_img" /> -->
               </div>
               <div class="col col-8">
@@ -301,7 +301,7 @@ import VueHotspot from "vue-hotspot-ets";
 import { db } from "../firebase";
 import Footer from "@/components/Footer.vue";
 import VueHtml2pdf from "vue-html2pdf";
-import moment from "moment";
+import moment from "moment";   
 
 export default {
   name: "Quote",
@@ -370,6 +370,7 @@ export default {
     ],
     isInputActive: false,
     currentDay: moment().format("DD/MM/YYYY"),
+    showImg: false,
   }),
 
   created() {},
@@ -665,6 +666,20 @@ export default {
   width: 100%;
   aspect-ratio: 1/1;
   background-color: white;
+  cursor: pointer;
+}
+
+.show-img{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  object-fit: contain;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 6rem;
+  overflow-y: hidden;
 }
 
 .title {
@@ -871,6 +886,10 @@ export default {
   font-weight: bold;
 }
 
+.no-scroll{
+  overflow-y: hidden !important;
+}
+
 /*Mobile view---------------------------------------------------------------------------------------------------------------------*/
 
 @media screen and (max-width: 768px) {
@@ -891,5 +910,9 @@ export default {
     position: relative;
     top: 3rem;
   }
+
+  .show-img{
+  padding: 1rem;
+}
 }
 </style>
