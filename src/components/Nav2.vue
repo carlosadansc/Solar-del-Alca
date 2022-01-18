@@ -5,17 +5,17 @@
     </a> -->
     <ul :class="showMenu ? 'nav-links nav-active' : 'nav-links'">
       <li>
-        <a href="#home" :class="active == 1 ? 'active' : ''" @click="setActive(1)"
+        <a href="/#home" :class="active == 1 ? 'active' : ''" @click="setActive(1)"
           >Inicio</a
         >
       </li>
       <li>
-        <a href="#project" :class="active == 2 ? 'active' : ''" @click="setActive(2)"
+        <a href="/#project" :class="active == 2 ? 'active' : ''" @click="setActive(2)"
           >Proyecto</a
         >
       </li>
       <li class="dv">
-        <a class="logo" href="#home">
+        <a class="logo" href="/#home">
           <img class="logo" src="@/assets/img/logo.svg" alt />
         </a>
       </li>
@@ -25,7 +25,7 @@
         >
       </li>
       <li>
-        <a href="#quote" :class="active == 4 ? 'active' : ''" @click="setActive(4)"
+        <a href="/#quote" :class="active == 4 ? 'active' : ''" @click="setActive(4)"
           >Cotizar</a
         >
       </li>
