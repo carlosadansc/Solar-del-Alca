@@ -31,8 +31,8 @@
                 <li><a href="https://www.facebook.com/cvbika" target="_blank">Cvbika</a></li>
                 <li><a href="https://www.facebook.com/Dominio11Studio-113308376718978" target="_blank">Dominio 11</a></li>
                 <li><a href="https://www.facebook.com/async.mx" target="_blank">Async Agencia Creativa</a></li>
-                <li><a href="https://www.facebook.com/henkorealestate" target="_blank">Henko Real Estate</a></li>
-                <li><a href="https://www.facebook.com/AB-Real-Estate-103094091688860" target="_blank">Ab Real Estate</a></li>
+                <li><a href="https://www.facebook.com/kwbajaofficial/" target="_blank">KW Baja</a></li>
+                <!-- <li><a href="https://www.facebook.com/AB-Real-Estate-103094091688860" target="_blank">Ab Real Estate</a></li> -->
               </ul>
             </div>
             <div class="col col-12 col-md-auto">
