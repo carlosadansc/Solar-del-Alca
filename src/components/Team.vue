@@ -63,23 +63,23 @@
             <div class="partner">
               <img
                 class="partner-img"
-                src="@/assets/img/henko-logo.svg"
+                src="@/assets/img/kw-logo.png"
                 alt=""
               />
               <div>
-                <p class="partner-name">Henko Real Estate</p>
+                <p class="partner-name">Keller Williams Baja</p>
                 <hr />
                 <p>Equipo comercial y de asesoramiento de proyecto.</p>
               </div>
             </div>
 
             <div class="partner">
-              <img class="partner-img" src="@/assets/img/ab-logo.svg" alt="" />
+             <!--  <img class="partner-img" src="@/assets/img/ab-logo.svg" alt="" />
               <div>
                 <p class="partner-name">AB Real Estate</p>
                 <hr />
                 <p>Equipo comercial y de asesoramiento de proyecto</p>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
