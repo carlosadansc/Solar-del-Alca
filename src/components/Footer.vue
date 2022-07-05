@@ -4,7 +4,7 @@
       <div class="row g-5">
         <div class="col col-12 col-md-6 d-flex align-items-md-start align-items-center flex-column">
           <div class="mail-container">
-            <img src="@/assets/img/footer-logo.svg" alt="" />
+            <img src="@/assets/img/logosolarfooternew.svg" alt="" />
             <p class="footer-title">Siempre puedes encontrarnos en:</p>
             <p>contacto@solardelalca.mx</p>
           </div>
@@ -31,7 +31,7 @@
                 <li><a href="https://www.facebook.com/cvbika" target="_blank">Cvbika</a></li>
                 <li><a href="https://www.facebook.com/Dominio11Studio-113308376718978" target="_blank">Dominio 11</a></li>
                 <li><a href="https://www.facebook.com/async.mx" target="_blank">Async Agencia Creativa</a></li>
-                <li><a href="https://www.facebook.com/kwbajaofficial/" target="_blank">KW Baja</a></li>
+                <li><a href="https://www.facebook.com/welcomehomebaja.mx" target="_blank">Welcome Home Baja</a></li>
                 <!-- <li><a href="https://www.facebook.com/AB-Real-Estate-103094091688860" target="_blank">Ab Real Estate</a></li> -->
               </ul>
             </div>
@@ -104,7 +104,7 @@ li {
 @media screen and (max-width: 768px) {
   .footer img {
     float: none;
-    max-width: 100%;
+    max-width: 50%;
     margin: 0 0 2rem 0;
   }
 

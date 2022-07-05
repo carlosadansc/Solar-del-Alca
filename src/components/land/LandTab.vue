@@ -65,16 +65,16 @@
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Buenas vistas</p>
+            <p class="feature-item mt-md-1 me-3">Buenas vistas.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Ubicación estratégica</p>
+            <p class="feature-item mt-md-1 me-3">Ubicación estratégica.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Dos accesos</p>
+            <p class="feature-item mt-md-1 me-3">Dos accesos.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Financiamiento disponible</p>
+            <p class="feature-item mt-md-1 me-3">Financiamiento disponible.</p>
           </div>
         </div>
       </div>
@@ -92,22 +92,24 @@
           <div class="col col-12">
             <p class="mt-1 mt-md-5 mb-5">
               Sin duda, si algo destaca de los lotes reales son las vistas que
-              estos tienen, ya sea a las áreas verdes, al motivo de acceso o
-              bien al parque lineal al centro del proyecto, ya sean de un acceso
-              o dos, los lotes reales son una gran opción a considerar.
+              estos tienen, ya sea hacia las hermosos cultivos o a los
+              residenciales cercanos, los lotes reales son una gran opción a
+              considerar.
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Las mejores vistas</p>
+            <p class="feature-item mt-md-1 me-3">Las mejores vistas.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Frente a parque y áreas verdes</p>
+            <p class="feature-item mt-md-1 me-3">
+              Frente a parque en área de sesión.
+            </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Aprovechamiento</p>
+            <p class="feature-item mt-md-1 me-3">Aprovechamiento.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Financiamiento disponible</p>
+            <p class="feature-item mt-md-1 me-3">Financiamiento disponible.</p>
           </div>
         </div>
       </div>
@@ -124,27 +126,23 @@
           </div>
           <div class="col col-12">
             <p class="mt-1 mt-md-5 mb-5">
-              ¿Te imaginas vivir con una calidad y una experiencia de primer
-              nivel? como si todo aquello que te rodea conspirara a tu favor
-              todos los días, con paz, con tranquilidad y sobre todo seguridad.
-              Pero con el detalle de que solo tienes que pagar la mitad por
-              ello.
+              ¿Te imaginas un espacio solo para ti, sin distracciones, silencio,
+              tranquilidad y unas grandes vistas? claro que sí lo imaginas, pero
+              apostamos a que creerías que puedes tener todo esto dentro de la
+              Ciudad.
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Oportunidad</p>
+            <p class="feature-item mt-md-1 me-3">Oportunidad.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Buenas ubicaciones</p>
+            <p class="feature-item mt-md-1 me-3">Buenas ubicaciones.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Un acceso</p>
+            <p class="feature-item mt-md-1 me-3">Un acceso.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Todos los servicios</p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Financiamiento disponible</p>
+            <p class="feature-item mt-md-1 me-3">Financiamiento disponible.</p>
           </div>
         </div>
       </div>

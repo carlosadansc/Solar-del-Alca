@@ -16,7 +16,7 @@
       </li>
       <li class="dv">
         <a class="logo" href="/#home">
-          <img class="logo" src="@/assets/img/logo.svg" alt />
+          <img class="logo" src="@/assets/img/logosolarnew.svg" alt />
         </a>
       </li>
       <li>

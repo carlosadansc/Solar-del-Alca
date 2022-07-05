@@ -17,7 +17,7 @@
               <div>
                 <p class="partner-name">CVBIKA - Arq. Edf.</p>
                 <hr />
-                <p>Planeación y diseño del proyecto de lotes residenciales.</p>
+                <p>Planeación arquitectónica del proyecto.</p>
               </div>
             </div>
 
@@ -56,18 +56,18 @@
               <div>
                 <p class="partner-name">Dominio 11 Studio</p>
                 <hr />
-                <p>Diseño de paisajismo, áreas comunes y amenidades.</p>
+                <p>Diseño de paisajismo y áreas comunes.</p>
               </div>
             </div>
 
             <div class="partner">
               <img
                 class="partner-img"
-                src="@/assets/img/kw-logo.png"
+                src="@/assets/img/whblogo.png"
                 alt=""
               />
               <div>
-                <p class="partner-name">Keller Williams Baja</p>
+                <p class="partner-name">Welcome Home Baja</p>
                 <hr />
                 <p>Equipo comercial y de asesoramiento de proyecto.</p>
               </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="col col-12 col-md-6">
           <h1 class="my-subtitle">Aún tenemos un</h1>
-          <h1 class="my-title mb-5 mb-md-0 ms-5">Lugar para ti en el equipo</h1>
+          <h1 class="my-title mb-5 ms-5">Lugar para ti en el equipo</h1>
           <p class="ms-md-5">
             Creamos un equipo que funciona cual reloj suizo, cuidando al
             milímetro cada uno de los detalles de este desarrollo, una

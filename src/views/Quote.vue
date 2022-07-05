@@ -35,7 +35,7 @@
                 <div class="row">
                   <div class="col col-12 d-flex justify-content-between">
                     <span class="lote-id"
-                      >Lote {{ category }} #{{ currentLand.id }}</span
+                      >Lote #{{ currentLand.id }}</span
                     >
                     <div class="close-button" @click="clearLand">
                       <i class="ri-close-line"></i>
@@ -77,7 +77,7 @@
             </div>
             <hr />
             <h5 class="mt-2">
-              Monto de enganche estimado<span style="color: #bf153e">*</span>.
+              Monto de enganche estimado<span style="color: #bf153e">*</span>. <small>{{ currentLand.id ? "(" + percent.toFixed(2) + "%)" : ""}}</small>
             </h5>
             <div class="input-content">
               <input
@@ -136,7 +136,7 @@
             @hotspot-click="hotspotClick"
           />
           <div class="info-hotspots mt-5">
-            <p class="dot dot-red">
+           <!--  <p class="dot dot-red">
               <b>Lote Común:</b> Son lotes frente a vialidades, cuentan con 1
               acceso, cuentan con vistas directas a otros lotes y son los de
               menor precio dentro del desarrollo.
@@ -150,7 +150,7 @@
               <b>Lote Imperial:</b> Son lotes ubicados en esquinas estratégicas,
               su extensión es mayor, cuentan con 2 accesos y tienen vistas hacia
               áreas verdes.
-            </p>
+            </p> -->
           </div>
         </div>
       </div>
@@ -174,13 +174,13 @@
         <div class="contenido">
           <div class="cabecera">
             <div class="logo">
-              <img src="@/assets/img/logo.jpg" alt="logo" />
+              <img src="@/assets/img/logodoc.png" alt="logo" />
             </div>
             <div class="titulo">
               <div class="row">
                 <div class="col col-12">
                   <span class="lote-id"
-                    >Lote {{ category }} #{{ currentLand.id }}</span
+                    >Lote #{{ currentLand.id }}</span
                   >
                 </div>
                 <div class="col col-3">
@@ -196,8 +196,8 @@
                   <p class="info-text">{{ currentLand.width }}m</p>
                 </div>
                 <div class="col col-5">
-                  <p class="subtitles">FECHA</p>
-                  <p class="info-text">{{ currentDay }}</p>
+                  <p class="subtitles">ACCESOS</p>
+                  <p class="info-text">{{ currentLand.access  }}</p>
                 </div>
                 <div class="col col-3">
                   <p class="subtitles">PRECIO X METRO</p>
@@ -205,9 +205,13 @@
                     {{ formatMoney(currentLand.price) }} MXN
                   </p>
                 </div>
-                <div class="col col-1">
-                  <p class="subtitles">ACCESOS</p>
-                  <p class="info-text">{{ currentLand.access }}</p>
+                 <div class="col col-2">
+                  <p class="subtitles">DESCUENTO</p>
+                  <p class="info-text">{{ discount * 100 + "%"}}</p>
+                </div>
+                <div class="col col-3">
+                  <p class="subtitles">PRECIO VENTA</p>
+                  <p class="info-text">{{ formatMoney(currentLand.purchaseValue) }} MXN</p>
                 </div>
               </div>
               <div class="row">
@@ -256,7 +260,7 @@
                 <p>{{ currentDay }}</p>
               </div>
               <div class="col col-2">
-                <p>{{ formatMoney(newPriceList) }}</p>
+                <p>{{ formatMoney(currentLand.purchaseValue) }}</p>
               </div>
               <div class="col col-2">
                 <p>{{ displayValue }}</p>
@@ -265,7 +269,7 @@
                 <p></p>
               </div>
               <div class="col col-2">
-                <p>{{ formatMoney(newPriceList - enganche) }}</p>
+                <p>{{ formatMoney(currentLand.purchaseValue - enganche) }}</p>
               </div>
             </div>
             <div
@@ -337,9 +341,10 @@ export default {
       width: "",
       access: "",
       priceList: "",
+      purchaseValue: ""
     },
     hotspotConfig: {
-      image: require("@/assets/img/grounds-sda.png"),
+      image: require("@/assets/img/sdanewgrounds.png"),
       editable: false,
       hotspotEditable: false,
       isDeletable: false,
@@ -350,7 +355,7 @@ export default {
       textColor: "#333",
       opacity: 0.9,
     },
-    meses: [12, 24, 36, 48, 60, 72, 84, 96],
+    meses: [12, 24, 36, 48, 60, 72, 84],
     htmlToPdfOptions: {
       margin: 12,
       filename: 'cotizacion.pdf',
@@ -437,18 +442,18 @@ export default {
       }
     },
     discount() {
-      if (this.percent < 0.15 || this.plazo == 96) {
+      if (this.percent < 15 || this.plazo == 84) {
         return 0;
       } else if (this.percent >= 15 && this.percent < 25) {
         return 0.02;
       } else if (this.percent >= 25 && this.percent < 35) {
-        return 0.04;
+        return 0.02;
       } else if (this.percent >= 35 && this.percent < 50) {
-        return 0.07;
+        return 0.04;
       } else if (this.percent >= 50 && this.percent < 90) {
-        return 0.11;
+        return 0.08;
       } else if (this.percent >= 90) {
-        return 0.17;
+        return 0.09;
       } else {
         return 0;
       }
@@ -464,9 +469,9 @@ export default {
   methods: {
     async getGrounds() {
       try {
-        const resDB = await db.collection("grounds").orderBy("category").get();
+        const resDB = await db.collection("grounds").orderBy("status").get();
         resDB.forEach((res) => {
-          //console.log(res.data())
+          console.log(res.data())
           this.hotspotConfig.data.push({
             id: res.data().id,
             category: res.data().category,
@@ -540,13 +545,11 @@ export default {
         currency: "MXN",
       }).format(total);
     },
-    hotspotColor(data) {
+     hotspotColor(data) {
       data.forEach((item) => {
-        return item.category == "basic"
-          ? "#AE0030"
-          : "#D0860D"
-          ? item.category == "real"
-          : "#406941";
+        return item.status == "in_sale"
+          ? "#4a7b55"
+          : "#bf153e";
       });
     },
     generateReport() {
@@ -558,20 +561,16 @@ export default {
       }
     },
     calculatePriceList() {
-      this.newPriceList =
-        this.plazo < 96
-          ? this.currentLand.priceList
-          : this.currentLand.priceList * 1.025;
+      //this.newPriceList = this.plazo < 84 ? this.currentLand.priceList : this.currentLand.priceList * 1.025;
       console.log(this.percent.toFixed(0));
       if (this.percent.toFixed(0) <= 10) {
-        var aux = this.newPriceList * 0.1;
+        var aux = this.currentLand.priceList * 0.1;
         this.enganche = parseFloat(aux.toFixed(2));
       }
     },
     quote() {
-      var purchaseValue =
-        this.currentLand.priceList - this.currentLand.priceList * this.discount;
-      var restValuePayment = purchaseValue - this.enganche;
+      this.currentLand.purchaseValue = this.currentLand.priceList - (this.currentLand.priceList * this.discount);
+      var restValuePayment = this.currentLand.purchaseValue - this.enganche;
       var monthlyPayment = restValuePayment / this.plazo;
 
       var quoteDatails = [];
@@ -594,13 +593,13 @@ export default {
 
       this.payments = quoteDatails;
 
-      console.log(
+       console.log(
         "LOTE #",
         this.currentLand.id,
         " PRECIO DE LISTA :",
         this.formatMoney(this.currentLand.priceList),
         " PRECIO DE VENTA :",
-        this.formatMoney(purchaseValue),
+        this.formatMoney(this.currentLand.purchaseValue),
         " ENGANCHE :",
         this.formatMoney(this.enganche),
         "(",
@@ -612,7 +611,7 @@ export default {
         this.formatMoney(restValuePayment),
         " MENSUALIDAD :",
         this.formatMoney(monthlyPayment)
-      );
+      ); 
     },
   },
 };
@@ -624,13 +623,13 @@ export default {
 }
 
 /* Give to children background color from 14 child to last child*/
-.ui__vue_hotspot_hotspot:nth-last-child(-n + 14) {
+/*  .ui__vue_hotspot_hotspot:nth-last-child(-n + 14) {
   background-color: #d69a2c !important;
-}
+}  */
 /* Give to children background color from 8 child to last child*/
-.ui__vue_hotspot_hotspot:nth-last-child(-n + 8) {
+ /* .ui__vue_hotspot_hotspot:nth-last-child(-n + 26) {
   background-color: #4a7b55 !important;
-}
+}  */
 
 .ui__vue_hotspot_hotspot.active > div {
   display: none !important;
@@ -834,6 +833,7 @@ export default {
 .dot-green::before {
   background-color: #4a7b55;
 }
+
 .contenido {
   width: 100%;
   height: fit-content;

@@ -14,13 +14,13 @@
         <button @click="to('/quote')" class="my-auto">EMPEZAR A COTIZAR</button>
         <div class="d-flex align-items-center">
           <span class="mx-md-5 mx-2 italic-item"
-            >Lotes desde: $394,290.00 MXN</span
+            >Lotes desde: $230,591.40 MXN</span
           >
           <span class="mx-md-5 mx-2 italic-item"
             >Enganches desde: 10% valor total</span
           >
           <span class="mx-md-5 mx-2 italic-item"
-            >Mensualidades hasta: 96 meses</span
+            >Mensualidades hasta: 84 meses</span
           >
         </div>
       </div>
@@ -41,7 +41,7 @@ export default {
 
 <style>
 .quote {
-  background: url("~@/assets/img/quote-bg.jpg");
+  background: url("~@/assets/img/6.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

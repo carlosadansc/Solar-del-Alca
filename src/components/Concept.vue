@@ -10,22 +10,21 @@
           <h1 class="my-subtitle mt-5">Sabemos que siempre</h1>
           <h1 class="my-title ms-5">Soñaste con un lugar así</h1>
           <p class="mx-md-5 mb-5 mt-5 mt-md-0">
-            No hay forma de que lo convencional sea lo tuyo, por ello dotamos un
-            espacio de hermosas vistas, materiales de la mejor calidad y las
-            amenidades que te mereces; Todo esto para albergar un nuevo hogar
-            hecho a tu medida.
+            No hay forma de que lo convencional sea lo tuyo, por ello tomamos un
+            espacio y lo transformamos en un lienzo en blanco para albergar tu nuevo proyecto de vida; 
+            todo dentro de la ciudad de La Paz.
           </p>
           <div class="row ms-5 g-0 no-mobile">
             <div class="col col-5">
               <img id="img-1" src="@/assets/img/concept-img1.jpg" alt="no_img" />
             </div>
             <div class="col col-7">
-              <img id="img-2" src="@/assets/img/concept-img2.jpg" alt="no_img" />
+              <img id="img-2" src="@/assets/img/2.jpg" alt="no_img" />
             </div>
           </div>
         </div>
         <div class="col col-md-6 col-12">
-          <img id="img-3" src="@/assets/img/concept-img3.jpg" alt="no_img" />
+          <img id="img-3" src="@/assets/img/3.jpg" alt="no_img" />
           <p class="mt-5 last-text">
             Así que ¡Bienvenido! Estás en tu nuevo hogar, un nuevo espacio de
             convivencia, un nuevo espacio para el cariño y la familia, quizá

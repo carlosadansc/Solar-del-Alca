@@ -12,7 +12,7 @@
           aria-controls="security"
           aria-selected="true"
         >
-          Tu seguridad
+          Seguridad
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -26,7 +26,7 @@
           aria-controls="enviroment"
           aria-selected="false"
         >
-          Los paisajes
+          Vistas
         </button>
       </li>
       <li class="nav-item" role="presentation">
@@ -40,21 +40,7 @@
           aria-controls="comodity"
           aria-selected="false"
         >
-          La comodidad
-        </button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button
-          class="nav-link custom-nav-link"
-          id="service-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#service"
-          type="button"
-          role="tab"
-          aria-controls="service"
-          aria-selected="false"
-        >
-          Los servicios
+          Comodidad
         </button>
       </li>
     </ul>
@@ -74,24 +60,18 @@
             <p class="mt-1 mt-md-5 mb-5">
               Como existen pocas cosas más importantes que las personas con las
               que convivimos en el día y son nuestra familia ya sea biológica o
-              por elección, Solar del Alca está creado pensando en la seguridad
-              y la comodidad a tu alcance.
+              por elección, Solar del Alca está creado dentro de la mancha
+              urbana en La Paz.
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Motivo de acceso</p>
+            <p class="feature-item mt-md-1 me-3">Dentro de la ciudad.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Barda perimetral</p>
+            <p class="feature-item mt-md-1 me-3">Cercano a desarrollos.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Banquetas de 2 metros</p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Acotaciones</p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Luminarias</p>
+            <p class="feature-item mt-md-1 me-3">Acceso en buenas condiciones.</p>
           </div>
         </div>
       </div>
@@ -108,33 +88,28 @@
           </div>
           <div class="col col-12">
             <p class="mt-1 mt-md-5 mb-5">
-              Con el ojo, la mente, la atención y el buen gusto en el detalle
-              fue que dotamos este espacio de un conjunto de áreas verdes al
-              final de las vialidades, un parque lineal que aporta paisajismo al
-              acceso, un motivo de acceso residencial con los materiales más
-              sostenibles y bonitos, sí, quizá somos muy detallistas.
+              Disfrutar de un espacio debe ser toda una experiencia tanto
+              visual, auditiva y sensorial. Por ello la ubicación privilegiada
+              de Solar del Alca es tan importante.
             </p>
           </div>
           <div class="col col-auto">
             <p class="feature-item mt-md-1 me-3">
-              Áreas verdes al final de las vialidades
+              Área con vegetación.
             </p>
           </div>
           <div class="col col-auto">
             <p class="feature-item mt-md-1 me-3">
-              Parque lineal en área de cesión
+              Parque lineal en área de cesión.
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Los mejores materiales</p>
+            <p class="feature-item mt-md-1 me-3">Vista a huertos naturales.</p>
           </div>
           <div class="col col-auto">
             <p class="feature-item mt-md-1 me-3">
-              Mejor aprovechamiento del suelo
+              Mejor aprovechamiento del suelo.
             </p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Acabados de alto nivel</p>
           </div>
         </div>
       </div>
@@ -151,55 +126,23 @@
           </div>
           <div class="col col-12">
             <p class="mt-1 mt-md-5 mb-5">
-              Desde los flujos de la vialidades, los accesos de los lotes hasta
-              los materiales con los que se proyecta Solar del Alca creamos
-              espacios que específicamente busquen tu comodidad siempre, así
-              crezca tu familia o bien estés buscando un espacio para
-              despejarte.
+              Para tener un espacio para la convivencia, el tiempo de calidad y
+              las aventuras no tienes que trasladarte a las afueras de la
+              ciudad, Solar del Alca se encuentra a solo 5 minutos una de las
+              zonas comerciales más importantes en la ciudad.
             </p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Comodidad en pagos</p>
+            <p class="feature-item mt-md-1 me-3">Comodidad en pagos.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Comodidad de acceso</p>
+            <p class="feature-item mt-md-1 me-3">Comodidad de acceso.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Cercano a zonas comerciales</p>
+            <p class="feature-item mt-md-1 me-3">Cercano a zonas comerciales.</p>
           </div>
           <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Acceso libre</p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="tab-pane fade"
-        id="service"
-        role="tabpanel"
-        aria-labelledby="service-tab"
-      >
-        <div class="row">
-          <div class="col col-12">
-            <h1 class="my-subtitle">Cuando creías que</h1>
-            <h1 class="my-title ms-5">no podíamos ofrecer más</h1>
-          </div>
-          <div class="col col-12">
-            <p class="mt-1 mt-md-5 mb-5">
-              Sabemos que conoces gente muy comprometida pero creemos cuando
-              decimos que estamos comprometidos con que tú y tu familia puedan
-              tener un valor extraordinario por su dinero en Solar del Alca,
-              ofrecemos junto a todo el equipamiento de primer nivel todos los
-              servicios de agua y luz.
-            </p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Servicios de agua</p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Servicio de drenaje</p>
-          </div>
-          <div class="col col-auto">
-            <p class="feature-item mt-md-1 me-3">Servicio de luz eléctrica</p>
+            <p class="feature-item mt-md-1 me-3">Acceso libre.</p>
           </div>
         </div>
       </div>

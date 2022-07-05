@@ -6,24 +6,24 @@
       </div>
       <div class="row align-items-end home-items" style="height: 100%">
         <div class="col px-md-5">
-          <h5 class="bottom-item-title mb-0">LOTES DE 200m2</h5>
-          <p>Totalmente urbanizados.</p>
-          <hr />
+          <h5 class="bottom-item-title mb-0 cream-color">LOTES RÚSTICOS</h5>
+          <p class="cream-color">Desde 207m2</p>
+          <hr class="cream-color"/>
         </div>
         <div class="col px-md-5">
-          <h5 class="bottom-item-title mb-0">HASTA 96 MESES</h5>
-          <p>Contando con financiamiento.</p>
-          <hr />
+          <h5 class="bottom-item-title mb-0 cream-color">HASTA 84 MESES</h5>
+          <p class="cream-color">Contando con financiamiento.</p>
+          <hr class="cream-color"/>
         </div>
         <div class="col px-md-5">
-          <h5 class="bottom-item-title mb-0">LOS PAISAJES</h5>
-          <p>Áreas verdes y amenidades.</p>
-          <hr />
+          <h5 class="bottom-item-title mb-0 cream-color">PLUSVALÍA</h5>
+          <p class="cream-color">De manera inmediata</p>
+          <hr class="cream-color"/>
         </div>
         <div class="col px-md-5">
-          <h5 class="bottom-item-title mb-0">CON SERVICIOS</h5>
-          <p>Y con buena seguridad.</p>
-          <hr />
+          <h5 class="bottom-item-title mb-0 cream-color">PRIMERA ETAPA</h5>
+          <p class="cream-color">Proyección asegurada</p>
+          <hr class="cream-color"/>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
 <style>
 .home {
   height: 90vh;
-  background: url("~@/assets/img/home-bg-1.jpg");
+  background: url("~@/assets/img/1.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,6 +73,10 @@ export default {
 .mouse-container span:before {
   content: url("~@/assets/img/mouse-icon.svg");
   margin-right: 0.5rem;
+}
+
+.cream-color{
+  color: var(--background-color);
 }
 
 /*Mobile view---------------------------------------------------------------------------------------------------------------------*/

@@ -10,7 +10,7 @@
           <Tab />
         </div>
         <div class="col col-12 col-md-6">
-          <img src="@/assets/img/project-img.jpg" alt="no_img" />
+          <img src="@/assets/img/4.jpg" alt="no_img" />
         </div>
       </div>
     </div>
